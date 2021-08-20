@@ -26,7 +26,7 @@ namespace Drugs.BL
            return await drugsRepository.GetDrugAsync(drugId);
         }
 
-        public async Task<IEnumerable<Drug>> GetDrugListAsync(string code = null, string label = null)
+        public async Task<IEnumerable<Drug>> GetDrugListAsync(string code, string label)
         {
             var response = await drugsRepository.GetDrugListAsync(code, label);
             return response;

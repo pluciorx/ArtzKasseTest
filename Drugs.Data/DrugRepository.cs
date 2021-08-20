@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Drugs.Data
 {
-    public class DrugsRepository :BaseRepository,IDrugsRepository
+    public class DrugsRepository : BaseRepository, IDrugsRepository
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(DrugsRepository));
         public DrugsRepository(IConfiguration configuration) : base(configuration)
@@ -34,13 +34,14 @@ namespace Drugs.Data
                 log.Error(ex);
                 return false;
             }
-            
+
         }
 
         public async Task<Drug> GetDrugAsync(int drugId)
         {
             using IDbConnection db = Connection;
-            var dbResponse = await db.QuerySingleAsync<Drug>("Select * from  rom Drugs Where drugId = @drugId", drugId);
+            var param = new { drugId };
+            var dbResponse = await db.QuerySingleAsync<Drug>("Select * from  rom Drugs Where drugId = @drugId", param);
             return dbResponse;
         }
 
@@ -58,10 +59,11 @@ namespace Drugs.Data
             return dbResponse;
         }
 
-        public async Task<IEnumerable<Drug>> GetDrugListAsync(string code, string label)
+        public async Task<IEnumerable<Drug>> GetDrugListAsync(string code = "", string label = "")
         {
             using IDbConnection db = Connection;
-            var dbResponse = await db.QueryAsync<Drug>("[spGetDrugList]", param: new { code, label });
+            var param = new { code = code, label = label };
+            var dbResponse = await db.QueryAsync<Drug>("[spGetDrugList]", param, commandType: CommandType.StoredProcedure);
             return dbResponse;
         }
     }

@@ -8,7 +8,7 @@ namespace Drugs.Data.Interfaces
 {
     public interface IDrugsRepository
     {
-        public Task<IEnumerable<Drug>> GetDrugListAsync(string code, string label);
+        public Task<IEnumerable<Drug>> GetDrugListAsync(string code = null, string label = null);
 
         public Task<bool> DeleteDrugAsync(int drugId);
 

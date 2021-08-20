@@ -8,7 +8,7 @@ namespace Drugs.BL.Interfaces
 {
     public interface IDrugService
     {
-        public Task<IEnumerable<Drug>> GetDrugListAsync(string code = null, string label = null);
+        public Task<IEnumerable<Drug>> GetDrugListAsync(string code = "", string label = "");
 
         public Task<bool> DeleteDrugAsync(int drugId);
 
