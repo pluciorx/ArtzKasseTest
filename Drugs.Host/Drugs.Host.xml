@@ -4,5 +4,20 @@
         <name>Drugs.Host</name>
     </assembly>
     <members>
+        <member name="M:DrugsHost.Controllers.DrugsController.DrugList(System.String,System.String)">
+            <summary>
+            Get's the drug List
+            </summary>
+            <param name="code"></param>
+            <param name="label"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DrugsHost.Controllers.DrugsController.Drug(System.String)">
+            <summary>
+            Gets single drug by it's ID
+            </summary>
+            <param name="drugId"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>
