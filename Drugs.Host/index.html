@@ -1,0 +1,30 @@
+﻿<html>
+<body>
+    <div class="jumbotron">
+        <h1>mHub GTFS</h1>
+        <p class="lead">Środowisko analizy rozkładów jazdy komunikacji miejskiej z wykorzystaniem GTFS.</p>
+    </div>
+
+    <div class="row">
+        <h2>Przykłady wołania metod API</h2>
+
+        <p>
+            <br />Przyjazdy na przystanek (stopId) o określonej dacie (date) i godzinie (time w formacie HHmm)
+            <bt /><a href="~/API/Arrivals?stopId=700201&date=2020-05-20&time=1315">wywołaj</a>
+        </p>
+
+        <p>
+            <br />Zwraca wszystkie przystanki (stops) z tabeli gtfs.stops bazy danych
+            <bt /><a href="~/API/Stops">wywołaj</a>
+        </p>
+
+        <p>
+            <br />Zwraca najbliższy przystanek (stop) dla wskazanych (lat) i (lon)
+            <bt /><a href="~/API/Stops?lat=52.2337463776774&lon=20.9119927883148">wywołaj</a>
+        </p>
+
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Drugs.Host", "Drugs.Host\Drugs.Host.csproj", "{24315567-12F3-41B3-A0B6-9CDF40AE9094}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DrugsData", "Drugs.Data\DrugsData.csproj", "{A72EAF56-76C0-4631-A355-146CD6C84D4C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Drugs.BL", "Drugs.BL\Drugs.BL.csproj", "{9198D2B8-51A5-4788-9562-096974072F65}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		BusPosService_Release|Any CPU = BusPosService_Release|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{24315567-12F3-41B3-A0B6-9CDF40AE9094}.BusPosService_Release|Any CPU.ActiveCfg = BusPosService_Release|Any CPU
+		{24315567-12F3-41B3-A0B6-9CDF40AE9094}.BusPosService_Release|Any CPU.Build.0 = BusPosService_Release|Any CPU
+		{24315567-12F3-41B3-A0B6-9CDF40AE9094}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24315567-12F3-41B3-A0B6-9CDF40AE9094}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24315567-12F3-41B3-A0B6-9CDF40AE9094}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24315567-12F3-41B3-A0B6-9CDF40AE9094}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A72EAF56-76C0-4631-A355-146CD6C84D4C}.BusPosService_Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A72EAF56-76C0-4631-A355-146CD6C84D4C}.BusPosService_Release|Any CPU.Build.0 = Release|Any CPU
+		{A72EAF56-76C0-4631-A355-146CD6C84D4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A72EAF56-76C0-4631-A355-146CD6C84D4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A72EAF56-76C0-4631-A355-146CD6C84D4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A72EAF56-76C0-4631-A355-146CD6C84D4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9198D2B8-51A5-4788-9562-096974072F65}.BusPosService_Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9198D2B8-51A5-4788-9562-096974072F65}.BusPosService_Release|Any CPU.Build.0 = Release|Any CPU
+		{9198D2B8-51A5-4788-9562-096974072F65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9198D2B8-51A5-4788-9562-096974072F65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9198D2B8-51A5-4788-9562-096974072F65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9198D2B8-51A5-4788-9562-096974072F65}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3E8907EF-28D0-4143-BAD9-58E5CDAE5A38}
+	EndGlobalSection
+EndGlobal
