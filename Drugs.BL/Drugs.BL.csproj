@@ -11,7 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\DipCore.DataModel\DrugsData.csproj" />
+    <ProjectReference Include="..\Drugs.Data\Drugs.Data.csproj" />
+    <ProjectReference Include="..\Drugs.Entities\Drugs.Entities.csproj" />
   </ItemGroup>
 
 </Project>

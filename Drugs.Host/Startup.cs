@@ -1,14 +1,20 @@
+
 using Drugs.BL;
+using Drugs.BL.Interfaces;
+using Drugs.Data;
+using Drugs.Data.Interfaces;
 using DrugsHost.Controllers;
 using log4net;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using System.IO;
 using System.Threading.Tasks;
-using Drugs.BL.Interfaces;
+
 
 namespace DrugsHost
 {
@@ -20,46 +26,74 @@ namespace DrugsHost
         {
             Configuration = configuration;
 
-
-            /* klasa Monitor obecnie nie jest wykorzystywana w prognozach, wymaga sporych dopracowañ 
-            //var monitorController = new MonitorController();
-            //Task.Run(() => monitorController.StartMonitor());
-            //log.Info("GTFS Monitoring feed started. ");
-            */
-
             CheckConfiguration();
 
-#if DEBUG==false
-           // Task.Run(() => ztmcontroller.StartTimer());
-            log.Info("ZTM vehicles position service started.");
-#endif
         }
 
         private void CheckConfiguration()
         {
-            if (string.IsNullOrEmpty(Configuration["DIP_DbConnString"]))
+            if (string.IsNullOrEmpty(Configuration["DbConnString"]))
             {
-                throw new System.Exception("Missing config Key:DIP_DbConnString");
+                throw new System.Exception("Missing config Key:DbConnString");
             }
         }
 
-       
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();            
+            services.AddControllers();
             services.AddHealthChecks();
             services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
-            var filePath = Path.Combine(System.AppContext.BaseDirectory, "DipCore.Host.xml");
-            services.AddSwaggerGen(c => c.IncludeXmlComments(filePath));
+            var filePath = Path.Combine(System.AppContext.BaseDirectory, "Drugs.Host.xml");
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Drugs API", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                      Reference = new OpenApiReference
+                      {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                      }
+                     },
+                     new string[] { }
+                   }
+                 });
+            });
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }
+            ).AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.Authority = "https://localhost:5001"; //idp address
+                options.Audience = "https://localhost:5000"; //idp address
+
+            });
+
 
             RegisterServices(services);
         }
 
         private void RegisterServices(IServiceCollection services)
         {
-            services.AddScoped<IDrugsRepository, GtfsRepository>();
+            services.AddScoped<IDrugService, DrugService>();
+            services.AddScoped<IDrugsRepository, DrugsRepository>();
 
         }
 
@@ -85,12 +119,12 @@ namespace DrugsHost
                 endpoints.MapControllers();
             });
 
-          
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Drugs API");
-                       
+
             });
         }
     }

@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Configurations>Debug;Release;BusPosService_Release</Configurations>
+    <Configurations>Debug;Release;</Configurations>
     <LangVersion>8</LangVersion>
     <StartupObject>DrugsHost.Program</StartupObject>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>DipCore.Host.xml</DocumentationFile>
+    <DocumentationFile>Drugs.Host.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,6 +30,7 @@
     <PackageReference Include="log4net" Version="2.0.12" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.17.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.Log4NetAppender" Version="2.17.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.18" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.1.4" />
@@ -38,13 +39,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DipCore.BL\DipCore.BL\Drugs.BL.csproj" />
-    <ProjectReference Include="..\DipCore.DataModel\DrugsData.csproj" />
+    <Folder Include="Properties\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Properties\" />
-    <Folder Include="wwwroot\" />
+    <ProjectReference Include="..\Drugs.BL\Drugs.BL.csproj" />
+    <ProjectReference Include="..\Drugs.Data\Drugs.Data.csproj" />
+    <ProjectReference Include="..\Drugs.Entities\Drugs.Entities.csproj" />
   </ItemGroup>
 
 

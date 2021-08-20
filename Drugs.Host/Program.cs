@@ -5,8 +5,6 @@ using Microsoft.Extensions.Hosting;
 using System.IO;
 using System.Reflection;
 using System.Xml;
-using Drugs.BL;
-using Drugs.BL.Interfaces;
 using log4net;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
