@@ -26,7 +26,8 @@ namespace Drugs.Data
             try
             {
                 using IDbConnection db = Connection;
-                var dbResponse = await db.ExecuteAsync("Delete From Drugs Where drugId = @drugId", drugId);
+                var param = new { drugId };
+                var dbResponse = await db.ExecuteAsync("Delete From Drugs Where drugId = @drugId", param);
                 return dbResponse == 1;
             }
             catch (SqlException ex)
