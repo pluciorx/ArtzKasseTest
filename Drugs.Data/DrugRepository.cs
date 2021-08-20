@@ -41,7 +41,7 @@ namespace Drugs.Data
         {
             using IDbConnection db = Connection;
             var param = new { drugId };
-            var dbResponse = await db.QuerySingleAsync<Drug>("Select * from  rom Drugs Where drugId = @drugId", param);
+            var dbResponse = await db.QuerySingleAsync<Drug>("Select * from Drugs Where drugId = @drugId", param);
             return dbResponse;
         }
 
