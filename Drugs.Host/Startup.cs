@@ -11,8 +11,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 
 
@@ -43,9 +46,10 @@ namespace DrugsHost
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            IdentityModelEventSource.ShowPII = true;
             services.AddControllers();
             services.AddHealthChecks();
-            services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
+
             var filePath = Path.Combine(System.AppContext.BaseDirectory, "Drugs.Host.xml");
             services.AddSwaggerGen(c =>
             {
@@ -80,9 +84,16 @@ namespace DrugsHost
             }
             ).AddJwtBearer(options =>
             {
-                options.SaveToken = true;
-                options.Authority = "https://localhost:5001"; //idp address
-                options.Audience = "https://localhost:5000"; //idp address
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    ValidAudience = Configuration["Jwt:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                };
 
             });
 
@@ -93,6 +104,7 @@ namespace DrugsHost
         private void RegisterServices(IServiceCollection services)
         {
             services.AddScoped<IDrugService, DrugService>();
+            services.AddScoped<ISecurityService, SecurityService>();
             services.AddScoped<IDrugsRepository, DrugsRepository>();
 
         }
